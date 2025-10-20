@@ -1,6 +1,5 @@
 import java.util.Random;
 
-// Класс банковского аккаунта
 class Account {
     private int balance = 0;
 
