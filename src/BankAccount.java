@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 class Account {
     private int balance = 0;
@@ -17,7 +18,7 @@ class Account {
     }
 
     // Метод для ожидания пополнения до нужной суммы
-    public synchronized void wait(int targetSum) throws InterruptedException {
+    public synchronized void waitForAmount(int targetSum) throws InterruptedException {
         System.out.println("Ожидаем накопления " + targetSum + " руб. для снятия...");
 
         while (balance < targetSum) {
@@ -61,23 +62,34 @@ class Deposit extends Thread {
 public class BankAccount {
     public static void main(String[] args) {
         Account account = new Account();
+        Scanner in = new Scanner(System.in);
+
+        // Ввод целевой суммы для накопления
+        System.out.print("Введите целевую сумму для накопления (a): ");
+        int a = in.nextInt();
+
+        // Ввод суммы для снятия
+        System.out.print("Введите сумму для снятия (b): ");
+        int b = in.nextInt();
 
         // Запускаем поток для пополнения счета
         Deposit depositThread = new Deposit(account);
         depositThread.start();
 
         try {
-            // Ждем, пока на счету не будет 200 рублей
-            account.wait(200);
+            // Ждем, пока на счету не будет целевой суммы a
+            account.waitForAmount(a);
 
-            // Снимаем 200 рублей
-            account.takeMoney(200);
+            // Снимаем b рублей
+            account.takeMoney(b);
 
             // Выводим итоговый баланс
             System.out.println("Итоговый баланс: " + account.getBalance() + " руб.");
 
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } finally {
+            in.close();
         }
     }
 }
