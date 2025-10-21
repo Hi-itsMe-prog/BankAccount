@@ -58,7 +58,7 @@ class Deposit extends Thread {
 }
 
 // Главный класс
-public class BankAccountDemo {
+public class BankAccount {
     public static void main(String[] args) {
         Account account = new Account();
 
