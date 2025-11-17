@@ -92,7 +92,7 @@ public class BankAccount {
         Account account = new Account();
         Scanner in = new Scanner(System.in);
 
-        // Ввод данных
+
         System.out.print("Введите целевую сумму для накопления (a): ");
         int a = in.nextInt();
 
@@ -102,7 +102,6 @@ public class BankAccount {
         System.out.print("Введите количество операций снятия: ");
         int operations = in.nextInt();
 
-        // Запускаем поток для пополнения счета
         Deposit depositThread = new Deposit(account);
         depositThread.start();
 
