@@ -92,7 +92,7 @@ public class BankAccount {
         Account account = new Account();
         Scanner in = new Scanner(System.in);
 
-        // Ввод сумм
+        // Ввод данных
         System.out.print("Введите целевую сумму для накопления (a): ");
         int a = in.nextInt();
 
@@ -107,16 +107,11 @@ public class BankAccount {
         depositThread.start();
 
         try {
-            // Запускаем циклическое ожидание и снятие
+
             account.waitAndWithdraw(a, b, operations);
-
-            // Останавливаем пополнение после завершения всех операций
             depositThread.stopDeposit();
-
-            // Ждем завершения потока пополнения
             depositThread.join();
 
-            // Выводим итоговый баланс
             System.out.println("Все операции завершены!");
             System.out.println("Итоговый баланс: " + account.balance + " руб.");
 
