@@ -32,10 +32,10 @@ class Account {
     }
 
     // Метод для циклического ожидания и снятия
-    void waitAndWithdraw(int targetSum, int withdrawAmount, int maxOperations) throws InterruptedException {
+    void waitAndWithdraw(int targetSum, int withdrawAmount, int maxOps) throws InterruptedException {
         lock.lock();
         try {
-            for (int i = 0; i < maxOperations; i++) {
+            for (int i = 0; i < maxOps; i++) {
                 System.out.println("[" + (i + 1) + "] Ожидаем накопления " + targetSum + " руб. для снятия...");
 
                 while (balance < targetSum) {
@@ -69,12 +69,12 @@ class Deposit extends Thread {
     @Override
     public void run() {
         try {
-            int operationCount = 0;
-            while (running && operationCount < 20) { // Увеличим количество пополнений
+            int opsCount = 0;
+            while (running && opsCount < 20) { // Увеличим количество пополнений
                 int amount = random.nextInt(100) + 1;
                 account.add(amount);
                 Thread.sleep(500);
-                operationCount++;
+                opsCount++;
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
